@@ -1,0 +1,2 @@
+{"timestamp":"2025-11-02T12:28:18.749Z","level":"debug","message":"Cache set: leaderboard:points:10 (TTL: 600000ms)"}
+{"timestamp":"2025-11-02T12:28:18.750Z","level":"debug","message":"HTTP response cached: leaderboard:points:10"}

@@ -1,0 +1,5 @@
+{"timestamp":"2025-11-02T12:28:04.548Z","level":"warn","message":"GET /?limit=2 - 500 - 15ms","request":{"method":"GET","url":"/?limit=2","ip":"::1","userAgent":"curl/8.14.1"}}
+{"timestamp":"2025-11-02T12:28:45.457Z","level":"warn","message":"GET /performance - 401 - 2ms","request":{"method":"GET","url":"/performance","ip":"::1","userAgent":"curl/8.14.1"}}
+{"timestamp":"2025-11-02T12:29:05.642Z","level":"warn","message":"404 - Route not found: GET /api/monitoring/cache/stats","request":{"method":"GET","url":"/api/monitoring/cache/stats","ip":"::1","userAgent":"curl/8.14.1"}}
+{"timestamp":"2025-11-02T12:29:05.646Z","level":"warn","message":"GET /api/monitoring/cache/stats - 404 - 5ms","request":{"method":"GET","url":"/api/monitoring/cache/stats","ip":"::1","userAgent":"curl/8.14.1"}}
+{"timestamp":"2025-11-02T12:29:25.908Z","level":"warn","message":"GET /cache - 401 - 2ms","request":{"method":"GET","url":"/cache","ip":"::1","userAgent":"curl/8.14.1"}}

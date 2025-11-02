@@ -35,15 +35,29 @@
 </template>
 
 <script setup>
-// 页脚组件
+import { useThemeStore } from '@/stores/theme'
+
+// 使用主题系统
+const themeStore = useThemeStore()
 </script>
 
 <style lang="scss" scoped>
 .footer {
-  background: radial-gradient(1200px 600px at 20% 0%, #f7f8fa, #f3f5f7);
+  background: var(--bg-secondary);
   padding: 48px 0 24px;
   margin-top: 40px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  
+  // 浅色主题的渐变背景
+  &:not([data-theme="dark"]) {
+    background: radial-gradient(1200px 600px at 20% 0%, var(--bg-secondary), var(--bg-tertiary));
+  }
+  
+  // 深色主题的渐变背景
+  :global([data-theme="dark"]) & {
+    background: radial-gradient(1200px 600px at 20% 0%, var(--bg-secondary), var(--bg-tertiary));
+  }
 }
 
 .container {
@@ -72,7 +86,8 @@
   span {
     font-weight: bold;
     font-size: 1.2rem;
-    color: #333;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
   }
 }
 
@@ -86,8 +101,9 @@
   h4 {
     font-size: 1rem;
     margin-bottom: 14px;
-    color: #333;
+    color: var(--text-primary);
     position: relative;
+    transition: color 0.3s ease;
   }
   h4::after {
     content: "";
@@ -105,7 +121,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #555;
+    color: var(--text-secondary);
     text-decoration: none;
     margin: 6px 0;
     font-size: 0.95rem;
@@ -114,11 +130,12 @@
     &::before {
       content: "▸";
       font-size: 0.9em;
-      color: #6fcf97;
+      color: var(--accent-1);
       transform: translateY(-0.5px);
+      transition: color 0.3s ease;
     }
     &:hover {
-      color: #2f3b4a;
+      color: var(--text-primary);
       transform: translateX(2px);
     }
   }
@@ -132,18 +149,21 @@
     content: "（敬请期待）";
     margin-left: 6px;
     font-size: 0.85em;
-    color: #888;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
   }
 }
 
 .footer-bottom {
   text-align: center;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-primary);
+  transition: border-color 0.3s ease;
   
   p {
-    color: #999;
+    color: var(--text-muted);
     font-size: 0.8rem;
+    transition: color 0.3s ease;
   }
 }
 

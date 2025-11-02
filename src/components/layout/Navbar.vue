@@ -22,16 +22,31 @@
         <router-link to="/store" class="nav-link">积分商城</router-link>
         <router-link to="/community" class="nav-link">社区</router-link>
         <router-link to="/ai-recognition" class="nav-link">AI 识别</router-link>
-        <router-link to="/leaderboard" class="nav-link">排行榜</router-link>
+        <router-link to="/upcycling" class="nav-link">旧物新生</router-link>
+
         <router-link to="/achievements" class="nav-link">成就</router-link>
       </div>
       <div class="user-actions">
+        <!-- 主题切换（一直显示） -->
+        <ThemeToggle mode="simple" />
+
+        <!-- 登录后显示用户名与登出 -->
         <template v-if="authStore.isLoggedIn">
-          <router-link to="/profile" class="profile-link">
-            <img src="@/assets/images/avatar.png" alt="用户头像" class="avatar" />
+          <router-link to="/profile" class="user-info" aria-label="个人中心">
+            <span class="user-icon">👤</span>
+            <span class="user-name">{{ authStore.username || authStore.user?.username || '用户' }}</span>
           </router-link>
-          <button @click="handleLogout" class="btn btn-outline glow">登出</button>
+          <button @click="handleLogout" class="icon-btn logout-btn" title="退出" aria-label="退出">
+            <svg class="logout-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 17l5-5-5-5" />
+              <path d="M15 12H3" />
+              <path d="M21 19V5a2 2 0 0 0-2-2h-6" />
+            </svg>
+            <span class="logout-text">退出</span>
+          </button>
         </template>
+
+        <!-- 未登录显示登录/注册 -->
         <template v-else>
           <router-link to="/login" class="btn btn-outline glow">登录</router-link>
           <router-link to="/register" class="btn btn-primary glow">注册</router-link>
@@ -48,6 +63,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { useCheckinStore } from '@/stores/checkin';
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+import ThemeToggle from '@/components/ui/ThemeToggle.vue'
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -315,6 +331,67 @@ const handleLogout = () => {
   display: flex;
   align-items: center;
   gap: 15px;
+
+  .theme-toggle {
+    margin-right: 5px;
+  }
+
+  .user-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #eafff8;
+    text-decoration: none;
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease, color .25s ease;
+  }
+
+  .user-info:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px var(--ray-shadow), inset 0 0 0 0.8px rgba(255, 255, 255, 0.25);
+    border-color: var(--ray-accent-2);
+    color: #ffffff;
+  }
+
+  .user-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .user-name {
+    font-weight: 500;
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #eafff8;
+    cursor: pointer;
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease, color .25s ease;
+  }
+
+  .icon-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px var(--ray-shadow), inset 0 0 0 0.8px rgba(255, 255, 255, 0.25);
+    border-color: var(--ray-accent-2);
+    color: #ffffff;
+  }
+
+  .logout-icon { opacity: 0.9; }
+  .logout-text { display: inline-block; }
+
+  @media (max-width: 640px) {
+    .logout-text { display: none; }
+    .user-name { display: none; }
+  }
 
   .avatar {
     width: 36px;

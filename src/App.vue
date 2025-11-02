@@ -1,36 +1,48 @@
 <template>
-  <div class="themed-app" :style="themeVars">
-    <div class="app-background">
-      <LightRays
-        rays-origin="top-center"
-        :rays-color="raysColor"
-        :rays-speed="1.5"
-        :light-spread="0.8"
-        :ray-length="1.2"
-        :follow-mouse="true"
-        :mouse-influence="0.1"
-        :noise-amount="0.1"
-        :distortion="0.05"
-        :class-name="'global-rays'"
-      />
-    </div>
-    <Navbar />
-    <main class="page">
-      <transition name="view" mode="out-in">
-        <router-view />
-      </transition>
-    </main>
-    <Footer />
-    <Toast />
+  <WelcomeDialog />
+  <div class="themed-app" :class="themeStore.appliedTheme" :style="combinedThemeVars">
+    <n-message-provider>
+      <n-notification-provider>
+        <div class="app-background">
+          <LightRays
+            rays-origin="top-center"
+            :rays-color="raysColor"
+            :rays-speed="1.5"
+            :light-spread="0.8"
+            :ray-length="1.2"
+            :follow-mouse="true"
+            :mouse-influence="0.1"
+            :noise-amount="0.1"
+            :distortion="0.05"
+            :class-name="'global-rays'"
+          />
+        </div>
+        <Navbar />
+        <main class="page">
+          <transition name="view" mode="out-in">
+            <router-view />
+          </transition>
+        </main>
+        <Footer />
+        <Toast />
+      </n-notification-provider>
+    </n-message-provider>
   </div>
 </template>
 
 <script setup>
+import WelcomeDialog from '@/components/ui/WelcomeDialog.vue'
 import { ref, computed } from 'vue'
+import { NMessageProvider, NNotificationProvider } from 'naive-ui'
 import Navbar from '@/components/layout/Navbar.vue'
 import Footer from '@/components/layout/Footer.vue'
 import Toast from '@/components/ui/Toast.vue'
 import LightRays from '@/views/LightRays.vue'
+import { useThemeStore } from '@/stores/theme'
+
+
+// 主题系统
+const themeStore = useThemeStore()
 
 // 全局光线主题色（与 LightRays 联动）
 const raysColor = ref('#ffffff')
@@ -61,6 +73,15 @@ const themeVars = computed(() => {
     '--ray-accent-2': lightenHex(raysColor.value, 20),
     '--ray-accent-3': lightenHex(raysColor.value, 40),
     '--ray-shadow': `rgba(${r}, ${g}, ${b}, 0.45)`
+  }
+})
+
+// 合并主题系统变量和光线变量
+const combinedThemeVars = computed(() => {
+  const currentThemeConfig = themeStore.getCurrentThemeConfig
+  return {
+    ...currentThemeConfig,
+    ...themeVars.value
   }
 })
 </script>

@@ -9,14 +9,17 @@ const AiRecognition = () => import('@/views/AiRecognition.vue')
 const Login = () => import('@/views/Login.vue')
 const Register = () => import('@/views/Register.vue')
 const Profile = () => import('@/views/Profile.vue')
-const Leaderboard = () => import('@/views/Leaderboard.vue')
+
 const Achievements = () => import('@/views/Achievements.vue')
+const Upcycling = () => import('@/views/Upcycling.vue')
 const CarbonFootprint = () => import('@/views/CarbonFootprint.vue')
 const HelpCenter = () => import('@/views/HelpCenter.vue')
 const AIAdvice = () => import('@/views/AIAdvice.vue')
 const About = () => import('@/views/About.vue')
 const Join = () => import('@/views/Join.vue')
 const Contact = () => import('@/views/Contact.vue')
+const TechShowcase = () => import('@/components/ui/TechShowcase.vue')
+const ApiTest = () => import('@/views/ApiTest.vue')
 
 
 const routes = [
@@ -32,11 +35,14 @@ const routes = [
   { path: '/about', name: 'about', component: About },
   { path: '/join', name: 'join', component: Join },
   { path: '/contact', name: 'contact', component: Contact },
+  { path: '/tech-showcase', name: 'techShowcase', component: TechShowcase },
   { path: '/login', name: 'login', component: Login },
   { path: '/register', name: 'register', component: Register },
   { path: '/profile', name: 'profile', component: Profile, meta: { requiresAuth: true } },
-  { path: '/leaderboard', name: 'leaderboard', component: Leaderboard },
+
   { path: '/achievements', name: 'achievements', component: Achievements },
+  { path: '/upcycling', name: 'upcycling', component: Upcycling },
+  { path: '/api-test', name: 'apiTest', component: ApiTest },
 ]
 
 const router = createRouter({
